@@ -34,19 +34,34 @@ def firstNetwork():
     #This is used to run commands on the hosts
 
     info( '*** Starting xterm on hosts\n' )
-    h1.cmd("sed -i 's/^PS1=.*\\\\033]0/## &/' ~/.bashrc")
-    h1.cmd("gnome-terminal --title='h1' -- bash &")
-    h2.cmd("sed -i 's/^PS1=.*\\\\033]0/## &/' ~/.bashrc")
-    h2.cmd("gnome-terminal --title='h2' -- bash &")
-
+    h1.cmd(
+  'xterm '
+  '-xrm "XTerm.vt100.allowTitleOps: false" '
+  '-xrm "XTerm.vt100.selectToClipboard: true" '
+  '-xrm "XTerm.vt100.translations: #override '
+  'Ctrl Shift <Key>C: copy-selection(CLIPBOARD)\\n'
+  'Ctrl Shift <Key>V: insert-selection(CLIPBOARD)\\n'
+  'Shift <Key>Insert: insert-selection(CLIPBOARD)" '
+  '-T h1 &'
+)
+    h2.cmd(
+  'xterm '
+  '-xrm "XTerm.vt100.allowTitleOps: false" '
+  '-xrm "XTerm.vt100.selectToClipboard: true" '
+  '-xrm "XTerm.vt100.translations: #override '
+  'Ctrl Shift <Key>C: copy-selection(CLIPBOARD)\\n'
+  'Ctrl Shift <Key>V: insert-selection(CLIPBOARD)\\n'
+  'Shift <Key>Insert: insert-selection(CLIPBOARD)" '
+  '-T h2 &'
+)
 
     info( '*** Running the command line interface\n' )
     CLI( net )
 
     info( '*** Closing the terminals on the hosts\n' )
-    h1.cmd("killall gnome-terminal")
-    h2.cmd("killall gnome-terminal")
-
+    h1.cmd("killall xterm")
+    h2.cmd("killall xterm")
+	
     info( '*** Stopping network' )
     net.stop()
 
