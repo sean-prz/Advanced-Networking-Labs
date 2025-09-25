@@ -32,10 +32,46 @@ def firstNetwork():
     "This is used to run commands on the hosts"
 
     info( '*** Starting terminals on hosts\n' )
-    PC1.cmd('xterm -xrm "XTerm.vt100.allowTitleOps: false" -T PC1 &')
-    PC2.cmd('xterm -xrm "XTerm.vt100.allowTitleOps: false" -T PC2 &')
-    PC3.cmd('xterm -xrm "XTerm.vt100.allowTitleOps: false" -T PC3 &')
-    PC4.cmd('xterm -xrm "XTerm.vt100.allowTitleOps: false" -T PC4 &')
+    PC1.cmd(
+  'xterm '
+  '-xrm "XTerm.vt100.allowTitleOps: false" '
+  '-xrm "XTerm.vt100.selectToClipboard: true" '
+  '-xrm "XTerm.vt100.translations: #override '
+  'Ctrl Shift <Key>C: copy-selection(CLIPBOARD)\\n'
+  'Ctrl Shift <Key>V: insert-selection(CLIPBOARD)\\n'
+  'Shift <Key>Insert: insert-selection(CLIPBOARD)" '
+  '-T PC1 &'
+)
+    PC2.cmd(
+    'xterm '
+    '-xrm "XTerm.vt100.allowTitleOps: false" '
+    '-xrm "XTerm.vt100.selectToClipboard: true" '
+    '-xrm "XTerm.vt100.translations: #override '
+    'Ctrl Shift <Key>C: copy-selection(CLIPBOARD)\\n'
+    'Ctrl Shift <Key>V: insert-selection(CLIPBOARD)\\n'
+    'Shift <Key>Insert: insert-selection(CLIPBOARD)" '
+    '-T PC2 &'
+)
+    PC3.cmd(
+    'xterm '
+    '-xrm "XTerm.vt100.allowTitleOps: false" '
+    '-xrm "XTerm.vt100.selectToClipboard: true" '
+    '-xrm "XTerm.vt100.translations: #override '
+    'Ctrl Shift <Key>C: copy-selection(CLIPBOARD)\\n'
+    'Ctrl Shift <Key>V: insert-selection(CLIPBOARD)\\n'
+    'Shift <Key>Insert: insert-selection(CLIPBOARD)" '
+    '-T PC3 &'
+)
+    PC4.cmd(
+    'xterm '
+    '-xrm "XTerm.vt100.allowTitleOps: false" '
+    '-xrm "XTerm.vt100.selectToClipboard: true" '
+    '-xrm "XTerm.vt100.translations: #override '
+    'Ctrl Shift <Key>C: copy-selection(CLIPBOARD)\\n'
+    'Ctrl Shift <Key>V: insert-selection(CLIPBOARD)\\n'
+    'Shift <Key>Insert: insert-selection(CLIPBOARD)" '
+    '-T PC4 &'
+)
 
     info( '*** Running the command line interface\n' )
     CLI( net )
