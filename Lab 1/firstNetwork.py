@@ -34,17 +34,19 @@ def firstNetwork():
     #This is used to run commands on the hosts
 
     info( '*** Starting xterm on hosts\n' )
-    h1.cmd('xterm -xrm "XTerm.vt100.allowTitleOps: false" -T h1 &')
-    h2.cmd('xterm -xrm "XTerm.vt100.allowTitleOps: false" -T h2 &')
+    h1.cmd("sed -i 's/^PS1=.*\\\\033]0/## &/' ~/.bashrc")
+    h1.cmd("gnome-terminal --title='h1' -- bash &")
+    h2.cmd("sed -i 's/^PS1=.*\\\\033]0/## &/' ~/.bashrc")
+    h2.cmd("gnome-terminal --title='h2' -- bash &")
 
 
     info( '*** Running the command line interface\n' )
     CLI( net )
 
     info( '*** Closing the terminals on the hosts\n' )
-    h1.cmd("killall xterm")
-    h2.cmd("killall xterm")
-	
+    h1.cmd("killall gnome-terminal")
+    h2.cmd("killall gnome-terminal")
+
     info( '*** Stopping network' )
     net.stop()
 
